@@ -10,7 +10,7 @@ export default class Input extends React.Component {
     render() {
         let error;
         if (this.props.meta.touched && this.props.meta.error) {
-            error = <div className="form-error">{this.props.meta.error}</div>;
+            error = <div className="form-error">{this.props.label} {this.props.meta.error}</div>;
         }
 
         let warning;
@@ -23,7 +23,6 @@ export default class Input extends React.Component {
         return (
             <div className="form-input">
                 <label htmlFor={this.props.input.name}>
-                    {this.props.label}
                     {error}
                     {warning}
                 </label>
@@ -32,7 +31,10 @@ export default class Input extends React.Component {
                     id={this.props.input.name}
                     type={this.props.type}
                     ref={input => (this.input = input)}
+                    placeholder={this.props.label}
+                    className="form-control"
                 />
+
             </div>
         );
     }
