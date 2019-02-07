@@ -1,0 +1,10 @@
+.nav-bar {
+  max-width: 250px;
+  min-width: 250px;
+  border: 1px solid rgb(57, 60, 61);
+  flex: 1;
+}
+
+.nav-menu ul {
+  list-style: none;
+}
