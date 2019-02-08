@@ -6,7 +6,7 @@ import { clearAuthToken } from '../local-storage';
 import requiresLogin from './requires-login';
 
 
-export class NavBar extends React.Component {
+export class RightBar extends React.Component {
     logOut() {
         this.props.dispatch(clearAuth());
         clearAuthToken();
@@ -22,9 +22,9 @@ export class NavBar extends React.Component {
         let logOutButton;
         logOutButton = (<Link className="text" to='/' onClick={() => this.logOut()}>Log out</Link>);
         return (
-            <div className="nav-bar">
+            <div className="right-bar">
                 <div className="gray-logo"> </div>
-                <div className="nav-menu">
+                <div className="right-bar-menu">
                     <ul>
                         <li>Account: {this.props.currentUser.username}</li>
                         <li><i className="fa fa-home"></i> <Link className="text" to='/'>Home</Link></li>
@@ -45,4 +45,4 @@ const mapStateToProps = state => ({
     currentUser: state.auth.currentUser
 });
 
-export default requiresLogin()(connect(mapStateToProps)(NavBar));
+export default requiresLogin()(connect(mapStateToProps)(RightBar));

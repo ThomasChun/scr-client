@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import requiresLogin from './requires-login';
 import './dashboard.css';
 import NavBar from './nav-bar';
+import RightBar from './right-bar';
 
 export class Dashboard extends React.Component {
     componentDidMount() {
@@ -11,12 +12,10 @@ export class Dashboard extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="page">
                 <NavBar />
-                <div className="dashboard">
-                    <div className="dashboard-username">Username: {this.props.username}</div>
-                    <div className="dashboard-name">Name: {this.props.name}</div>
-                </div>
+                <div className="main-container">Dashboard main content text here...</div>
+                <RightBar />
             </div>
         );
     }
