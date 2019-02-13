@@ -7,6 +7,8 @@ import LandingPage from './landing-page';
 import Dashboard from './dashboard';
 import RegistrationPage from './registration-page';
 import {refreshAuthToken} from '../actions/auth';
+import Admin from './admin';
+import Baseball from './baseball/baseball';
 import Baseball2019 from './baseball/baseball-2019';
 import Baseball2018 from './baseball/baseball-2018';
 import Baseball2017 from './baseball/baseball-2017';
@@ -53,8 +55,10 @@ export class App extends React.Component {
             <div className="app">
                 <HeaderBar />
                 <Route exact path="/" component={LandingPage} />
+                <Route exact path="/admin" component={Admin} />
                 <Route exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/register" component={RegistrationPage} />
+                <Route exact path="/baseball" component={Baseball} />
                 <Route exact path="/baseball-2019" component={Baseball2019} />
                 <Route exact path="/baseball-2018" component={Baseball2018} />
                 <Route exact path="/baseball-2017" component={Baseball2017} />

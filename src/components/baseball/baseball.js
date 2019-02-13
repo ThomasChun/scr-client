@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import requiresLogin from './requires-login';
-import NavBar from './nav-bar';
-import RightBar from './right-bar';
+import requiresLogin from '../requires-login';
+import NavBar from '../nav-bar';
+import RightBar from '../right-bar';
 
-export class Dashboard extends React.Component {
+export class Baseball extends React.Component {
     componentDidMount() {
 
     }
@@ -13,7 +13,7 @@ export class Dashboard extends React.Component {
         return (
             <div className="page">
                 <NavBar />
-                <div className="main-container">Dashboard main content text here...</div>
+                <div className="main-container">Baseball Main Page...</div>
                 <RightBar />
             </div>
         );
@@ -28,4 +28,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default requiresLogin()(connect(mapStateToProps)(Dashboard));
+export default requiresLogin()(connect(mapStateToProps)(Baseball));

@@ -27,11 +27,8 @@ export class RightBar extends React.Component {
                 <div className="right-bar-menu">
                     <ul>
                         <li>Account: {this.props.currentUser.username}</li>
-                        <li><i className="fa fa-home"></i> <Link className="text" to='/'>Home</Link></li>
-                        <li><Link className="text" to='/suggested'>Friends List</Link></li>
-                        <li><Link className="text" to='/meetups'>My Meetups</Link></li>
-                        <li><Link className="text" to='/community-guide'>Community Guidelines</Link></li>
-                        <li><Link className="text" to="/about-us">About Us</Link></li>
+                        <li><Link className="text" to='/'>Home</Link></li>
+                        <li><Link className="text" to='/admin'>Admin</Link></li>
                         <li><i className="fas fa-sign-out-alt"></i> {logOutButton}</li>
                     </ul>
                 </div>

@@ -43,3 +43,7 @@
 .login-button, .register-button {
   margin-bottom:  10px;
 }
+
+.form-error {
+  color: red;
+}
