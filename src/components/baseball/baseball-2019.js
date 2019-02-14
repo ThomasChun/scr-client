@@ -26,7 +26,7 @@ export class Baseball2019 extends React.Component {
                 return (
                     <div className="product-by-year-info-container" key={index} id={product.id}>
                         <div className="product-by-year-image-container">
-                            <img src={product.productImageUrl} alt={product.name} />
+                        <Link to={{ pathname: `/baseball-2019/${product.name}`, state: { product: product } }}><img src={product.productImageUrl} alt={product.name} /></Link>
                         </div>
                         <ul>
                             <Link className="product-by-year-name" to={{ pathname: `/baseball-2019/${product.name}`, state: { product: product } }}><li><b>{product.name}</b></li></Link>

@@ -52,11 +52,25 @@ body {
 
 .nav-menu ul, .right-bar ul {
   list-style: none;
-  padding-left: 25px;
+  padding-left: 15px;
+}
+
+.nav-menu-content {
+  padding-left: 15px;
+}
+
+.nav-menu li {
+  /* padding-left: 10px; */
+  margin: 5px 0px;
 }
 
 .nav-menu a, .right-bar a {
     text-decoration: none;
+    color: black;
+}
+
+.nav-menu a:hover, .right-bar a:hover {
+  color: rgb(0, 195, 0);
 }
 
 .dashboard {
@@ -155,6 +169,11 @@ body {
 .product-by-year-name {
   font-size: 20px;
   text-decoration: none;
+  color: black;
+}
+
+.product-by-year-name:hover {
+  color: rgb(0, 195, 0);
 }
 
 .product-by-year-release-date {
@@ -199,6 +218,7 @@ body {
 }
 
 .product-page-product-breakdown-text {
+  font-size: 14px;
   line-height: 22px;
 }
 

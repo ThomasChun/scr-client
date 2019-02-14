@@ -59,9 +59,9 @@ export class NavBar extends React.Component {
             <div className="nav-bar">
                 <div className="gray-logo"> </div>
                 <div className="nav-menu">
+                    <div className="nav-menu-content">
                     <ul>
                         <li><Link className="text" to='/'>Home</Link></li>
-                        <li>Sports</li>
                         <li className="nav-baseball" onClick={() => this.handleToggleNavBaseball()}><Link className="text" to='/baseball'>Baseball</Link></li>
                         <ul style={{ display: this.props.toggleNavBaseball ? 'block' : 'none' }}>
                             <li><Link className="text" to='/baseball-2019'>2019</Link></li>
@@ -165,6 +165,7 @@ export class NavBar extends React.Component {
                             </ul>
                         </ul>
                     </ul>
+                    </div>
                 </div>
             </div>
         );
