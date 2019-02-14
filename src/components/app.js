@@ -19,6 +19,7 @@ import Baseball2013 from './baseball/baseball-2013';
 import Baseball2012 from './baseball/baseball-2012';
 import Baseball2011 from './baseball/baseball-2011';
 import Baseball2010Older from './baseball/baseball-2010-older';
+import ProductPage from './product-page';
 
 export class App extends React.Component {
     componentDidUpdate(prevProps) {
@@ -60,6 +61,7 @@ export class App extends React.Component {
                 <Route exact path="/register" component={RegistrationPage} />
                 <Route exact path="/baseball" component={Baseball} />
                 <Route exact path="/baseball-2019" component={Baseball2019} />
+                <Route exact path="/baseball-2019/:productName" component={ProductPage} />
                 <Route exact path="/baseball-2018" component={Baseball2018} />
                 <Route exact path="/baseball-2017" component={Baseball2017} />
                 <Route exact path="/baseball-2016" component={Baseball2016} />
