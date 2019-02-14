@@ -4,6 +4,7 @@ import requiresLogin from './requires-login';
 import NavBar from './nav-bar';
 import RightBar from './right-bar';
 import { fetchProducts } from '../actions/products';
+import ReviewForm from './review-form';
 
 export class ProductPage extends React.Component {
   componentDidMount() {
@@ -12,7 +13,7 @@ export class ProductPage extends React.Component {
   render() {
 
     const { product } = this.props.location.state;
-    console.log(product);
+    // console.log(product);
 
     return (
       <div className="page">
@@ -65,7 +66,8 @@ export class ProductPage extends React.Component {
             </section>
             <hr />
             <section className="product-page-user-reviews">
-              <div>User reviews posted by reviewers will show up here.</div>
+              <h3>Fill out the form below to post a review of your break!</h3>
+              <ReviewForm currentUser={this.props.username} imageCount={this.props.imageCount}/>
             </section>
           </div>
         </div>
@@ -81,6 +83,7 @@ const mapStateToProps = state => {
     username: state.auth.currentUser.username,
     name: `${currentUser.firstName} ${currentUser.lastName}`,
     products: state.products.products,
+    imageCount: state.auth.imageCount,
   };
 };
 

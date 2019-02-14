@@ -33,6 +33,18 @@ export const authError = error => ({
     error
 });
 
+export const USER_IMAGE_COUNT_INCREMENT = 'USER_IMAGE_COUNT_INCREMENT';
+export const userImageCountIncrement = (imageCount) => ({
+    type: USER_IMAGE_COUNT_INCREMENT,
+    imageCount
+});
+
+export const USER_IMAGE_COUNT_DECREMENT = 'USER_IMAGE_COUNT_DECREMENT';
+export const userImageCountDecrement = (imageCount) => ({
+    type: USER_IMAGE_COUNT_DECREMENT,
+    imageCount
+});
+
 // Stores the auth token in state and localStorage, and decodes and stores
 // the user data stored in the token
 const storeAuthInfo = (authToken, dispatch) => {

@@ -103,10 +103,14 @@ body {
   margin-bottom: 15px;
 }
 
-.product-description textarea, .product-breakdown textarea {
+.product-description textarea, .product-breakdown textarea, .review-form-user-review textarea, .review-form-hit-list textarea {
   margin-bottom: 10px;
   height: 75px;
   width: 500px;
+}
+
+.review-form-user-review textarea {
+  height: 200px;
 }
 
 .product-sport {
@@ -220,6 +224,7 @@ body {
 .product-page-product-breakdown-text {
   font-size: 14px;
   line-height: 22px;
+  white-space: pre-line;
 }
 
 .product-page-image-breakdown-container {
@@ -230,6 +235,38 @@ body {
 .product-page-main hr {
   margin: 25px 0px;
   color: #d9d9d9;
+}
+
+/* review-form.js styling */
+
+.review-form div {
+  margin: 10px 0px;
+}
+
+.review-form label {
+  margin-right: 15px;
+}
+
+.review-form-user-break-images li {
+  list-style: none;
+  padding: 0px;
+}
+
+.review-form-remove-image-button  {
+  height: 21px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 5px;
+}
+
+.review-form-user-break-images-input-container {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 14px;
+}
+
+.review-form-user-break-images-input-container div {
+  margin: 0px;
 }
 
 @media screen and (max-width: 600px){

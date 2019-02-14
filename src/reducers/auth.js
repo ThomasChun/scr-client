@@ -3,14 +3,17 @@ import {
     CLEAR_AUTH,
     AUTH_REQUEST,
     AUTH_SUCCESS,
-    AUTH_ERROR
+    AUTH_ERROR,
+    USER_IMAGE_COUNT_INCREMENT,
+    USER_IMAGE_COUNT_DECREMENT,
 } from '../actions/auth';
 
 const initialState = {
     authToken: null, // authToken !== null does not mean it has been validated
     currentUser: null,
     loading: false,
-    error: null
+    error: null,
+    imageCount: 0,
 };
 
 export default function reducer(state = initialState, action) {
@@ -38,6 +41,16 @@ export default function reducer(state = initialState, action) {
             loading: false,
             error: action.error
         });
+    } else if (action.type === USER_IMAGE_COUNT_INCREMENT) {
+        return {
+            ...state,
+            imageCount: action.imageCount,
+        }
+    } else if (action.type === USER_IMAGE_COUNT_DECREMENT) {
+        return {
+            ...state,
+            imageCount: action.imageCount,
+        }
     }
     return state;
 }
