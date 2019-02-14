@@ -68,7 +68,7 @@ body {
   flex: 3;
   border: 1px solid #d9d9d9;
   background-color: white;
-  /* margin: 0px 20px; */
+  min-height: 725px;
   padding: 25px;
   margin: 0px 10px;
   border-radius: 3px;
