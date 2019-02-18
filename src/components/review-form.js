@@ -2,6 +2,7 @@ import React from 'react';
 import { Field, reduxForm, FieldArray } from 'redux-form';
 import { required, nonEmpty, isTrimmed } from '../validators';
 import { userImageCountIncrement, userImageCountDecrement } from '../actions/auth';
+import { createReview } from '../actions/reviews';
 
 // import StarRatingComponent from 'react-star-rating-component';
 
@@ -10,6 +11,9 @@ export class ReviewForm extends React.Component {
   onSubmit(values) {
     console.log(values);
     console.log('current user ->', this.props.currentUser);
+    console.log('product ->', this.props.product.name);
+    console.log('product ->', this.props.product.year);
+    this.props.dispatch(createReview(this.props.product.name, values));
     alert('Your review has successfully been posted!');
   }
 
@@ -78,12 +82,12 @@ export class ReviewForm extends React.Component {
           this.onSubmit(values)
         )}>
         <div className="review-form-overall-rating">
-          <label htmlFor="overall-rating"><b>Overall Rating:</b></label>
+          <label htmlFor="overallRating"><b>Overall Rating:</b></label>
           <Field
             component="select"
-            type="text"
-            name="overall-rating"
-            id="overall-rating"
+            type="number"
+            name="overallRating"
+            id="overallRating"
             validate={[required, nonEmpty, isTrimmed]}
           >
             <option value="">- select -</option> 
@@ -95,12 +99,12 @@ export class ReviewForm extends React.Component {
           </Field>
         </div>
         <div className="review-form-value-rating">
-          <label htmlFor="value-rating"><b>Value Rating:</b></label>
+          <label htmlFor="valueRating"><b>Value Rating:</b></label>
           <Field
             component="select"
             type="text"
-            name="value-rating"
-            id="value-rating"
+            name="valueRating"
+            id="valueRating"
             validate={[required, nonEmpty, isTrimmed]}
           >
             <option value="">- select -</option> 
@@ -112,12 +116,12 @@ export class ReviewForm extends React.Component {
           </Field>
         </div>
         <div className="review-form-design-rating">
-          <label htmlFor="value-rating"><b>Design Rating:</b></label>
+          <label htmlFor="designRating"><b>Design Rating:</b></label>
           <Field
             component="select"
             type="text"
-            name="design-rating"
-            id="design-rating"
+            name="designRating"
+            id="designRating"
             validate={[required, nonEmpty, isTrimmed]}
           >
             <option value="">- select -</option> 
@@ -129,12 +133,12 @@ export class ReviewForm extends React.Component {
           </Field>
         </div>
         <div className="review-form-excitement-rating">
-          <label htmlFor="excitement-rating"><b>Excitement Rating:</b></label>
+          <label htmlFor="excitementRating"><b>Excitement Rating:</b></label>
           <Field
             component="select"
             type="text"
-            name="excitement-rating"
-            id="excitement-rating"
+            name="excitementRating"
+            id="excitementRating"
             validate={[required, nonEmpty, isTrimmed]}
           >
             <option value="">- select -</option> 
@@ -146,12 +150,12 @@ export class ReviewForm extends React.Component {
           </Field>
         </div>
         <div className="review-form-checklist-rating">
-          <label htmlFor="excitement-rating"><b>Checklist Rating:</b></label>
+          <label htmlFor="checklistRating"><b>Checklist Rating:</b></label>
           <Field
             component="select"
             type="text"
-            name="checklist-rating"
-            id="checklist-rating"
+            name="checklistRating"
+            id="checklistRating"
             validate={[required, nonEmpty, isTrimmed]}
           >
             <option value="">- select -</option> 
@@ -163,12 +167,12 @@ export class ReviewForm extends React.Component {
           </Field>
         </div>
         <div className="review-form-recommend-feedback">
-          <label htmlFor="recommend-feedback"><b>Do you recommend buying this product?</b></label>
+          <label htmlFor="recommendProduct"><b>Do you recommend buying this product?</b></label>
           <Field
             component="select"
             type="text"
-            name="recommend-feedback"
-            id="recommend-feedback"
+            name="recommendProduct"
+            id="recommendProduct"
             validate={[required, nonEmpty, isTrimmed]}
           >
             <option value="">- select -</option> 
@@ -177,42 +181,42 @@ export class ReviewForm extends React.Component {
           </Field>
         </div>
         <div className="review-form-youtube-url">
-          <label htmlFor="youtube-url"><b>YouTube Video URL:</b></label>
+          <label htmlFor="youtubeUrl"><b>YouTube Video URL:</b></label>
           <Field
             component="input"
             type="text"
-            name="youtube-url"
-            id="youtube-url"
+            name="youtubeUrl"
+            id="youtubeUrl"
             placeholder="www.youtube.com"
             validate={[required, nonEmpty, isTrimmed]}
             className="form-control"
           />
         </div>
         <div className="review-form-user-break-images">
-          <label htmlFor="user-break-images"><b>Upload card scans from your break:</b></label>
-          <FieldArray name="user-break-images" component={userImages} />
+          <label htmlFor="userBreakImages"><b>Upload card scans from your break:</b></label>
+          <FieldArray name="userBreakImages" component={userImages} />
         </div>
         <div className="review-form-hit-list">
-          <label htmlFor="hit-list"><b>List Your Top Pulls Here:</b></label>
+          <label htmlFor="hitList"><b>List Your Top Pulls Here:</b></label>
           <br/>
           <Field
             component="textarea"
             type="text"
-            name="hit-list"
-            id="hit-list"
+            name="hitList"
+            id="hitList"
             placeholder="example: Mike Trout - 2011 Topps Update Series RC #US175"
             validate={[required, nonEmpty, isTrimmed]}
             className="form-control"
           />
         </div>
         <div className="review-form-user-review">
-          <label htmlFor="user-review"><b>Enter Review Here:</b></label>
+          <label htmlFor="userReview"><b>Enter Review Here:</b></label>
           <br/>
           <Field
             component="textarea"
             type="text"
-            name="user-review"
-            id="user-review"
+            name="userReview"
+            id="userReview"
             placeholder="Enter your review here..."
             validate={[required, nonEmpty, isTrimmed]}
             className="form-control"

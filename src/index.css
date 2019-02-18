@@ -237,6 +237,10 @@ body {
   color: #d9d9d9;
 }
 
+.product-page-pulls-images img {
+  max-height: 150px;
+}
+
 /* review-form.js styling */
 
 .review-form div {

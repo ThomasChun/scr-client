@@ -5,15 +5,80 @@ import NavBar from './nav-bar';
 import RightBar from './right-bar';
 import { fetchProducts } from '../actions/products';
 import ReviewForm from './review-form';
+import { fetchReviews } from '../actions/reviews';
 
 export class ProductPage extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchProducts());
+    this.props.dispatch(fetchReviews());
   }
   render() {
 
     const { product } = this.props.location.state;
     // console.log(product);
+    const { reviews } = this.props;
+    console.log(reviews);
+    let userReviews = reviews.filter(review => review.productName === product.name);
+    console.log(userReviews);
+
+    let overallRatingTotal = 0;
+    let valueRatingTotal = 0;
+    let designRatingTotal = 0;
+    let excitementRatingTotal = 0;
+    let checklistRatingTotal = 0;
+    let recommendProductCount = 0;
+    let youtubeVideoArray = [];
+    let userBreakImagesArray = [];
+    let totalReviews = userReviews.length;
+    let userBreakImages = [];
+    let displayUserImages;
+
+    if (userReviews.length >= 1) {
+      userReviews.forEach(review => {
+        overallRatingTotal += parseInt(review.overallRating) / totalReviews;
+        valueRatingTotal += parseInt(review.valueRating) / totalReviews;
+        designRatingTotal += parseInt(review.designRating) / totalReviews;
+        excitementRatingTotal += parseInt(review.excitementRating) / totalReviews;
+        checklistRatingTotal += parseInt(review.checklistRating) / totalReviews;
+        if (review.recommendProduct === 'Yes') {
+          recommendProductCount++;
+        }
+        youtubeVideoArray.push(review.youtubeUrl);
+        userBreakImagesArray.push(review.userBreakImages);
+      });
+
+      overallRatingTotal = Math.round(overallRatingTotal * 10) / 10;
+      valueRatingTotal = Math.round(valueRatingTotal * 10) / 10;
+      designRatingTotal = Math.round(designRatingTotal * 10) / 10;
+      excitementRatingTotal = Math.round(excitementRatingTotal * 10) / 10;
+      checklistRatingTotal = Math.round(checklistRatingTotal * 10) / 10;
+
+      // user images photo's
+      if (userBreakImagesArray.length > 0) {
+        userBreakImagesArray.forEach(userImages => {
+          userImages.forEach(image => {
+            userBreakImages.push(image);
+          })
+        })
+      }
+
+      displayUserImages = userBreakImages.map((image, index) => {
+        return (
+          <img src={image} key={index} alt={`card ${index}`}/>
+        )
+      })
+
+      console.log('userBreakImages', userBreakImages);
+
+      console.log('overall rating', overallRatingTotal);
+      console.log('value rating', valueRatingTotal);
+      console.log('design rating', designRatingTotal);
+      console.log('excitement rating', excitementRatingTotal);
+      console.log('checklist rating', checklistRatingTotal);
+      console.log('recommend product count', recommendProductCount);
+      console.log('youtube videos', youtubeVideoArray);
+      console.log('user break images', userBreakImagesArray);
+    }
 
     return (
       <div className="page">
@@ -28,11 +93,11 @@ export class ProductPage extends React.Component {
               <div className="product-page-product-rating-data">
                 <h3>User Reviews:</h3>
                 <div className="product-page-product-rating-data-list">
-                  <li>Overall Rating: *****</li>
-                  <li>Value: *****</li>
-                  <li>Design: *****</li>
-                  <li>Category 4: *****</li>
-                  <li>Category 5: *****</li>
+                  <li>Overall Rating: {overallRatingTotal}</li>
+                  <li>Value: {valueRatingTotal}</li>
+                  <li>Design: {designRatingTotal}</li>
+                  <li>Excitement: {excitementRatingTotal}</li>
+                  <li>Checklist: {checklistRatingTotal}</li>
                 </div>
                 <button>Full Breakdown</button>
                 <button>Sell Sheet</button>
@@ -58,7 +123,7 @@ export class ProductPage extends React.Component {
             </section>
             <hr />
             <section className="product-page-pulls-images">
-              <div>Gallery of big pulls / hits posted by reviewers will show up here.</div>
+              <div>{displayUserImages}</div>
             </section>
             <hr />
             <section className="product-page-user-video-collection">
@@ -67,7 +132,7 @@ export class ProductPage extends React.Component {
             <hr />
             <section className="product-page-user-reviews">
               <h3>Fill out the form below to post a review of your break!</h3>
-              <ReviewForm currentUser={this.props.username} imageCount={this.props.imageCount}/>
+              <ReviewForm currentUser={this.props.username} imageCount={this.props.imageCount} product={product} />
             </section>
           </div>
         </div>
@@ -84,6 +149,7 @@ const mapStateToProps = state => {
     name: `${currentUser.firstName} ${currentUser.lastName}`,
     products: state.products.products,
     imageCount: state.auth.imageCount,
+    reviews: state.reviews.reviews,
   };
 };
 

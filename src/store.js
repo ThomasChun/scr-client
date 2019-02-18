@@ -7,6 +7,7 @@ import navReducer from './reducers/nav-bar';
 import productsReducer from './reducers/products';
 import {setAuthToken, refreshAuthToken} from './actions/auth';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import reviewsReducer from './reducers/reviews';
 
 const store = createStore(
     combineReducers({
@@ -14,6 +15,7 @@ const store = createStore(
         auth: authReducer,
         nav: navReducer,
         products: productsReducer,
+        reviews: reviewsReducer,
     }),
     composeWithDevTools(applyMiddleware(thunk))
 );

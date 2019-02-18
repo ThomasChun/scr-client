@@ -4,7 +4,6 @@ import {normalizeResponseErrors} from './utils';
 export const FETCH_PRODUCTS_REQUEST = 'FETCH_PRODUCTS_REQUEST';
 export const fetchProductsRequest = () => ({
   type: FETCH_PRODUCTS_REQUEST,
-  loading: true,
 });
 
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
@@ -38,7 +37,6 @@ export const fetchProducts = () => (dispatch, getState) => {
 export const CREATE_PRODUCT_REQUEST = 'CREATE_PRODUCT_REQUEST';
 export const createProductRequest = () => ({
   type: CREATE_PRODUCT_REQUEST,
-  loading: true,
 });
 
 export const CREATE_PRODUCT_SUCCESS = 'CREATE_PRODUCT_SUCCESS';
