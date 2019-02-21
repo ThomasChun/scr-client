@@ -13,7 +13,7 @@ export class ReviewForm extends React.Component {
     console.log('current user ->', this.props.currentUser);
     console.log('product ->', this.props.product.name);
     console.log('product ->', this.props.product.year);
-    this.props.dispatch(createReview(this.props.product.name, values));
+    this.props.dispatch(createReview(this.props.currentUser, this.props.product.name, values));
     alert('Your review has successfully been posted!');
   }
 

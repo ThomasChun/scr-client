@@ -52,7 +52,7 @@ export const createReviewsError = (error) => ({
   error,
 });
 
-export const createReview = (productName, review) => (dispatch, getState) => {
+export const createReview = (username, productName, review) => (dispatch, getState) => {
   dispatch(createReviewsRequest());
   const { overallRating, valueRating, designRating, excitementRating, checklistRating, recommendProduct, youtubeUrl, userBreakImages, hitList, userReview } = review
   const authToken = getState().auth.authToken;
@@ -64,6 +64,7 @@ export const createReview = (productName, review) => (dispatch, getState) => {
       'Authorization': `Bearer ${authToken}`
     },
     body: JSON.stringify({
+      username,
       productName,
       overallRating,
       valueRating,

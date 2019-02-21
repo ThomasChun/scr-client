@@ -6,6 +6,8 @@ import RightBar from './right-bar';
 import { fetchProducts } from '../actions/products';
 import ReviewForm from './review-form';
 import { fetchReviews } from '../actions/reviews';
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export class ProductPage extends React.Component {
   componentDidMount() {
@@ -32,6 +34,11 @@ export class ProductPage extends React.Component {
     let totalReviews = userReviews.length;
     let userBreakImages = [];
     let displayUserImages;
+    let youtubeEmbededUrls = [];
+    let displayYoutubeVideos;
+    let filteredYoutubeVideoArray;
+    let noYoutubeVideos;
+    let noImagesToDisplay;
 
     if (userReviews.length >= 1) {
       userReviews.forEach(review => {
@@ -62,9 +69,17 @@ export class ProductPage extends React.Component {
         })
       }
 
+      if (userBreakImages.length <= 0) {
+        noImagesToDisplay = <span>No user images to display!</span>
+      } else {
+        noImagesToDisplay = '';
+      }
+
       displayUserImages = userBreakImages.map((image, index) => {
         return (
-          <img src={image} key={index} alt={`card ${index}`}/>
+          <div>
+            <img className='userBreakImages' src={image} key={index} alt={`card ${index}`} />
+          </div>
         )
       })
 
@@ -78,7 +93,32 @@ export class ProductPage extends React.Component {
       console.log('recommend product count', recommendProductCount);
       console.log('youtube videos', youtubeVideoArray);
       console.log('user break images', userBreakImagesArray);
+    } // end of condition ==> if (userReviews.length >= 1)
+
+    // filter out videos that don't have proper youtube urls
+    filteredYoutubeVideoArray = youtubeVideoArray.filter(videoUrl => videoUrl.includes('https://www.youtube.com/watch?v='))
+
+    // handle youtube urls here... convert to embed urls.
+    filteredYoutubeVideoArray.map((videoUrl) => {
+      youtubeEmbededUrls.push(videoUrl.replace('watch?v=', 'embed/'));
+    });
+
+    console.log('after youtube embed', youtubeEmbededUrls);
+
+    if (youtubeEmbededUrls.length > 0) {
+      displayYoutubeVideos = youtubeEmbededUrls.map((image, index) => {
+        return (
+          <iframe key={index} width="420" height="345" src={image}></iframe>
+        )
+      })
+    } else {
+      noYoutubeVideos =  <div>No YouTube videos to display!</div>
     }
+
+    // display user reviews for product
+    userReviews.map((review, index) => {
+
+    })
 
     return (
       <div className="page">
@@ -111,6 +151,7 @@ export class ProductPage extends React.Component {
             </section>
             <hr />
             <section className="product-page-buying-options">
+            <h3>Buy {product.name} Boxes:</h3>
               <div>eBay Link to boxes with price --> $__.__ <button>Buy</button></div>
               <div>Amazon Link to boxes --> $__.__ <button>Buy</button></div>
               <div>Blowout Cards --> $__.__ <button>Buy</button></div>
@@ -119,20 +160,34 @@ export class ProductPage extends React.Component {
             </section>
             <hr />
             <section className="product-page-ebay-singles-links">
+              <h3>Buy {product.name} Singles on eBay:</h3>
               <div>Gallery of links to buy singles on ebay.</div>
             </section>
             <hr />
             <section className="product-page-pulls-images">
-              <div>{displayUserImages}</div>
+              <h3>Card Images: {noImagesToDisplay}</h3>
+              <div>
+                <Carousel dynamicHeight showThumbs={false} width='500px'>
+                  {displayUserImages}
+                </Carousel>
+              </div>
             </section>
             <hr />
             <section className="product-page-user-video-collection">
-              <div>Gallery of videos posted by reviewers will show up here.</div>
+              <h3>YouTube Break Videos: {noYoutubeVideos}</h3> 
+              <Carousel showThumbs={false} width='600px'>
+                {displayYoutubeVideos}
+              </Carousel>
             </section>
             <hr />
-            <section className="product-page-user-reviews">
+            <section className="product-page-user-review-form">
+              <button onClick={() => console.log('click')}>Create Review!</button>
               <h3>Fill out the form below to post a review of your break!</h3>
               <ReviewForm currentUser={this.props.username} imageCount={this.props.imageCount} product={product} />
+            </section>
+            <hr />
+            <section className="product-page-user-reviews-list">
+              <h3>Box Break Reviews</h3>
             </section>
           </div>
         </div>

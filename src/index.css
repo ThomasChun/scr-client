@@ -237,8 +237,16 @@ body {
   color: #d9d9d9;
 }
 
-.product-page-pulls-images img {
-  max-height: 150px;
+.product-page-pulls-images {
+  max-width: 
+}
+
+.product-page-pulls-images .carousel, .product-page-user-video-collection .carousel {
+  margin: auto;
+}
+
+.userBreakImages {
+  max-width: 400px;
 }
 
 /* review-form.js styling */
