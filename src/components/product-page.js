@@ -39,8 +39,10 @@ export class ProductPage extends React.Component {
     let filteredYoutubeVideoArray;
     let noYoutubeVideos;
     let noImagesToDisplay;
+    let totalProductReviews = 0;
 
     if (userReviews.length >= 1) {
+      totalProductReviews = userReviews.length;
       userReviews.forEach(review => {
         overallRatingTotal += parseInt(review.overallRating) / totalReviews;
         valueRatingTotal += parseInt(review.valueRating) / totalReviews;
@@ -83,6 +85,31 @@ export class ProductPage extends React.Component {
         )
       })
 
+      // filter out videos that don't have proper youtube urls
+      filteredYoutubeVideoArray = youtubeVideoArray.filter(videoUrl => videoUrl.includes('https://www.youtube.com/watch?v='))
+
+      // handle youtube urls here... convert to embed urls.
+      filteredYoutubeVideoArray.map((videoUrl) => {
+        youtubeEmbededUrls.push(videoUrl.replace('watch?v=', 'embed/'));
+      });
+
+      console.log('after youtube embed', youtubeEmbededUrls);
+
+      if (youtubeEmbededUrls.length > 0) {
+        displayYoutubeVideos = youtubeEmbededUrls.map((image, index) => {
+          return (
+            <iframe key={index} width="420" height="345" src={image}></iframe>
+          )
+        })
+      } else {
+        noYoutubeVideos = <div>No YouTube videos to display!</div>
+      }
+
+      // display user reviews for product
+      userReviews.map((review, index) => {
+
+      })
+
       console.log('userBreakImages', userBreakImages);
 
       console.log('overall rating', overallRatingTotal);
@@ -95,31 +122,6 @@ export class ProductPage extends React.Component {
       console.log('user break images', userBreakImagesArray);
     } // end of condition ==> if (userReviews.length >= 1)
 
-    // filter out videos that don't have proper youtube urls
-    filteredYoutubeVideoArray = youtubeVideoArray.filter(videoUrl => videoUrl.includes('https://www.youtube.com/watch?v='))
-
-    // handle youtube urls here... convert to embed urls.
-    filteredYoutubeVideoArray.map((videoUrl) => {
-      youtubeEmbededUrls.push(videoUrl.replace('watch?v=', 'embed/'));
-    });
-
-    console.log('after youtube embed', youtubeEmbededUrls);
-
-    if (youtubeEmbededUrls.length > 0) {
-      displayYoutubeVideos = youtubeEmbededUrls.map((image, index) => {
-        return (
-          <iframe key={index} width="420" height="345" src={image}></iframe>
-        )
-      })
-    } else {
-      noYoutubeVideos =  <div>No YouTube videos to display!</div>
-    }
-
-    // display user reviews for product
-    userReviews.map((review, index) => {
-
-    })
-
     return (
       <div className="page">
         <NavBar />
@@ -131,7 +133,7 @@ export class ProductPage extends React.Component {
                 <img src={product.productImageUrl} alt={product.name} />
               </div>
               <div className="product-page-product-rating-data">
-                <h3>User Reviews:</h3>
+                <h3>{totalProductReviews} User Reviews:</h3>
                 <div className="product-page-product-rating-data-list">
                   <li>Overall Rating: {overallRatingTotal}</li>
                   <li>Value: {valueRatingTotal}</li>
@@ -151,7 +153,7 @@ export class ProductPage extends React.Component {
             </section>
             <hr />
             <section className="product-page-buying-options">
-            <h3>Buy {product.name} Boxes:</h3>
+              <h3>Buy {product.name} Boxes:</h3>
               <div>eBay Link to boxes with price --> $__.__ <button>Buy</button></div>
               <div>Amazon Link to boxes --> $__.__ <button>Buy</button></div>
               <div>Blowout Cards --> $__.__ <button>Buy</button></div>
@@ -174,7 +176,7 @@ export class ProductPage extends React.Component {
             </section>
             <hr />
             <section className="product-page-user-video-collection">
-              <h3>YouTube Break Videos: {noYoutubeVideos}</h3> 
+              <h3>YouTube Break Videos: {noYoutubeVideos}</h3>
               <Carousel showThumbs={false} width='600px'>
                 {displayYoutubeVideos}
               </Carousel>
