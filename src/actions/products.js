@@ -1,5 +1,5 @@
-import {API_BASE_URL} from '../config';
-import {normalizeResponseErrors} from './utils';
+import { API_BASE_URL } from '../config';
+import { normalizeResponseErrors } from './utils';
 
 export const FETCH_PRODUCTS_REQUEST = 'FETCH_PRODUCTS_REQUEST';
 export const fetchProductsRequest = () => ({
@@ -28,10 +28,10 @@ export const fetchProducts = () => (dispatch, getState) => {
       Authorization: `Bearer ${authToken}`
     }
   })
-  .then(res => normalizeResponseErrors(res))
-  .then(res => res.json())
-  .then(res => dispatch(fetchProductsSuccess(res)))
-  .catch(err => dispatch(fetchProductsError(err)))
+    .then(res => normalizeResponseErrors(res))
+    .then(res => res.json())
+    .then(res => dispatch(fetchProductsSuccess(res)))
+    .catch(err => dispatch(fetchProductsError(err)))
 }
 
 export const CREATE_PRODUCT_REQUEST = 'CREATE_PRODUCT_REQUEST';
@@ -73,13 +73,35 @@ export const createProduct = product => (dispatch, getState) => {
       description,
     })
   })
-  .then(res => normalizeResponseErrors(res))
-  .then(res => res.json())
-  .then(data => dispatch(createProductSuccess(data)))
-  .catch(err => dispatch(createProductError(err)))
+    .then(res => normalizeResponseErrors(res))
+    .then(res => res.json())
+    .then(data => dispatch(createProductSuccess(data)))
+    .catch(err => dispatch(createProductError(err)))
 }
 
 export const TOGGLE_REVIEW_FORM = 'TOGGLE_REVIEW_FORM';
 export const toggleReviewForm = () => ({
   type: TOGGLE_REVIEW_FORM,
+});
+
+export const DELETE_PRODUCT_SUCCESS = 'DELETE_PRODUCT_SUCCESS';
+export const deleteProductSuccess = () => ({
+  type: DELETE_PRODUCT_SUCCESS,
 })
+
+export const deleteProduct = (productId) => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  return fetch(`${API_BASE_URL}/products/${productId}`, {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${authToken}`
+    },
+    body: JSON.stringify({
+      productId,
+    })
+  })
+  .then(() => dispatch(deleteProductSuccess()))
+  .then(() => dispatch(fetchProducts()))
+}

@@ -20,6 +20,8 @@ import Baseball2012 from './baseball/baseball-2012';
 import Baseball2011 from './baseball/baseball-2011';
 import Baseball2010Older from './baseball/baseball-2010-older';
 import ProductPage from './product-page';
+import AdminManageProducts from './admin-manage-products';
+import AdminApproveUserReviews from './admin-approve-user-reviews';
 
 export class App extends React.Component {
     componentDidUpdate(prevProps) {
@@ -57,6 +59,8 @@ export class App extends React.Component {
                 <HeaderBar />
                 <Route exact path="/" component={LandingPage} />
                 <Route exact path="/admin" component={Admin} />
+                <Route exact path="/admin-manage-products" component={AdminManageProducts} />
+                <Route exact path="/admin-approve-user-reviews" component={AdminApproveUserReviews} />
                 <Route exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/register" component={RegistrationPage} />
                 <Route exact path="/baseball" component={Baseball} />

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import requiresLogin from './requires-login';
 import NavBar from './nav-bar';
 import RightBar from './right-bar';
-import ProductForm from './product-form';
 import { fetchProducts } from '../actions/products';
+import { Link } from 'react-router-dom';
 
 export class Admin extends React.Component {
     componentDidMount() {
@@ -12,37 +12,15 @@ export class Admin extends React.Component {
     }
 
     render() {
-        const { products } = this.props;
-
-        if (!products) {
-            return null;
-        }
-
-        let productsList;
-        if (products.length === 0) {
-            productsList = <p>There are no products!</p>
-        } else {
-            productsList = products.map((product, index) => {
-                return (
-                    <div className="admin-product-info-container" key={index}>
-                        <li><b>Name:</b> {product.name}</li>
-                        <li><b>sport:</b> {product.sport}</li>
-                        <li><b>year:</b> {product.year}</li>
-                        <li><b>release date:</b> {product.releaseDate}</li>
-                        <li><b>brand:</b> {product.brand}</li>
-                    </div>
-                )
-            })
-        }
-
         return (
             <div className="page">
                 <NavBar />
-                <div className="main-container admin-page">
-                    <h2>Admin Page</h2>
-                    <h3>Add Product</h3>
-                    <ProductForm />
-                    {productsList}
+                <div className="main-container admin-main-page">
+                    <h2>Admin Main Page</h2>
+                    <ul>
+                        <li><Link className="text" to='/admin-manage-products'>Manage Products</Link></li>
+                        <li><Link className="text" to='/admin-approve-user-reviews'>Approve User Reviews</Link></li>
+                    </ul>
                 </div>
                 <RightBar />
             </div>
