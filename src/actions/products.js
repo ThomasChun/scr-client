@@ -78,3 +78,8 @@ export const createProduct = product => (dispatch, getState) => {
   .then(data => dispatch(createProductSuccess(data)))
   .catch(err => dispatch(createProductError(err)))
 }
+
+export const TOGGLE_REVIEW_FORM = 'TOGGLE_REVIEW_FORM';
+export const toggleReviewForm = () => ({
+  type: TOGGLE_REVIEW_FORM,
+})

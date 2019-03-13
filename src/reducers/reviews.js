@@ -5,12 +5,14 @@ import {
   CREATE_REVIEWS_REQUEST,
   CREATE_REVIEWS_SUCCESS,
   CREATE_REVIEWS_ERROR,
+  PAGE_OF_ITEMS,
 } from '../actions/reviews';
 
 const initialState = {
   reviews: [],
   loading: false,
   error: null,
+  pageOfItems: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -47,6 +49,11 @@ export default function reducer(state = initialState, action) {
       ...state,
       loading: false,
       error: action.error,
+    }
+  } else if (action.type === PAGE_OF_ITEMS) {
+    return {
+      ...state,
+      pageOfItems: action.pageOfItems,
     }
   }
   return state;

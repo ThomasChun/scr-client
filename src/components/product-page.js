@@ -3,25 +3,31 @@ import { connect } from 'react-redux';
 import requiresLogin from './requires-login';
 import NavBar from './nav-bar';
 import RightBar from './right-bar';
-import { fetchProducts } from '../actions/products';
+import { fetchProducts, toggleReviewForm } from '../actions/products';
 import ReviewForm from './review-form';
 import { fetchReviews } from '../actions/reviews';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import UserReviewPagination from './user-review-pagination';
 
 export class ProductPage extends React.Component {
+
   componentDidMount() {
     this.props.dispatch(fetchProducts());
     this.props.dispatch(fetchReviews());
   }
-  render() {
 
+  createReviewFormClick() {
+    this.props.dispatch(toggleReviewForm());
+  }
+
+  render() {
     const { product } = this.props.location.state;
     // console.log(product);
-    const { reviews } = this.props;
-    console.log(reviews);
+    const { reviews, toggleReviewForm } = this.props;
+    // console.log('reviews', reviews);
     let userReviews = reviews.filter(review => review.productName === product.name);
-    console.log(userReviews);
+    // console.log('userReviews', userReviews);
 
     let overallRatingTotal = 0;
     let valueRatingTotal = 0;
@@ -34,13 +40,28 @@ export class ProductPage extends React.Component {
     let totalReviews = userReviews.length;
     let userBreakImages = [];
     let displayUserImages;
-    let youtubeEmbededUrls = [];
     let displayYoutubeVideos;
     let filteredYoutubeVideoArray;
-    let noYoutubeVideos;
     let noImagesToDisplay;
     let totalProductReviews = 0;
+    let createReviewForm;
+    let createReviewFormButtonText;
+    let paginateUserReviews;
 
+    // allows user to toggle (show/hide) the create review form
+    if (toggleReviewForm === true) {
+      createReviewFormButtonText = 'Hide Review Form';
+      createReviewForm = <ReviewForm currentUser={this.props.username} imageCount={this.props.imageCount} product={product} />
+    } else {
+      createReviewFormButtonText = 'Show Review Form';
+      createReviewForm = '';
+    }
+
+    // display values if there are no user reviews posted for product yet
+    noImagesToDisplay = <span>No user images to display!</span>
+    displayYoutubeVideos = <div>No YouTube videos to display!</div>
+
+    // if there is at least 1 user review enter this if block
     if (userReviews.length >= 1) {
       totalProductReviews = userReviews.length;
       userReviews.forEach(review => {
@@ -79,47 +100,32 @@ export class ProductPage extends React.Component {
 
       displayUserImages = userBreakImages.map((image, index) => {
         return (
-          <div>
+          <div key={index}>
             <img className='userBreakImages' src={image} key={index} alt={`card ${index}`} />
           </div>
         )
       })
 
-      // filter out videos that don't have proper youtube urls
-      filteredYoutubeVideoArray = youtubeVideoArray.filter(videoUrl => videoUrl.includes('https://www.youtube.com/watch?v='))
-
-      // handle youtube urls here... convert to embed urls.
-      filteredYoutubeVideoArray.map((videoUrl) => {
-        youtubeEmbededUrls.push(videoUrl.replace('watch?v=', 'embed/'));
-      });
-
-      console.log('after youtube embed', youtubeEmbededUrls);
-
-      if (youtubeEmbededUrls.length > 0) {
-        displayYoutubeVideos = youtubeEmbededUrls.map((image, index) => {
-          return (
-            <iframe key={index} width="420" height="345" src={image}></iframe>
-          )
-        })
-      } else {
-        noYoutubeVideos = <div>No YouTube videos to display!</div>
-      }
-
-      // display user reviews for product
-      userReviews.map((review, index) => {
-
+      userReviews.forEach((review, index) => {
+        review.youtubeUrl = review.youtubeUrl.replace('watch?v=', 'embed/');
+        return review;
       })
 
-      console.log('userBreakImages', userBreakImages);
+      // pass userReviews array as props to paginate
+      paginateUserReviews = <UserReviewPagination items={userReviews} />
 
-      console.log('overall rating', overallRatingTotal);
-      console.log('value rating', valueRatingTotal);
-      console.log('design rating', designRatingTotal);
-      console.log('excitement rating', excitementRatingTotal);
-      console.log('checklist rating', checklistRatingTotal);
-      console.log('recommend product count', recommendProductCount);
-      console.log('youtube videos', youtubeVideoArray);
-      console.log('user break images', userBreakImagesArray);
+      filteredYoutubeVideoArray = userReviews.filter(review => review.youtubeUrl.includes('https://www.youtube.com/embed/'))
+      if (filteredYoutubeVideoArray.length > 0) {
+        displayYoutubeVideos = filteredYoutubeVideoArray.map((review, index) => {
+          return (
+            <iframe key={index} width="420" height="325" src={review.youtubeUrl}></iframe>
+          )
+        })
+        displayYoutubeVideos = <Carousel showThumbs={false} width='600px'>{displayYoutubeVideos}</Carousel>
+      } else {
+        displayYoutubeVideos = <div>No YouTube videos to display!</div>
+      }
+
     } // end of condition ==> if (userReviews.length >= 1)
 
     return (
@@ -140,6 +146,7 @@ export class ProductPage extends React.Component {
                   <li>Design: {designRatingTotal}</li>
                   <li>Excitement: {excitementRatingTotal}</li>
                   <li>Checklist: {checklistRatingTotal}</li>
+                  <li>Recommended by {recommendProductCount} of {totalProductReviews} reviewers</li>
                 </div>
                 <button>Full Breakdown</button>
                 <button>Sell Sheet</button>
@@ -169,27 +176,27 @@ export class ProductPage extends React.Component {
             <section className="product-page-pulls-images">
               <h3>Card Images: {noImagesToDisplay}</h3>
               <div>
-                <Carousel dynamicHeight showThumbs={false} width='500px'>
+                <Carousel dynamicHeight showThumbs={false} width='600px'>
                   {displayUserImages}
                 </Carousel>
               </div>
             </section>
             <hr />
             <section className="product-page-user-video-collection">
-              <h3>YouTube Break Videos: {noYoutubeVideos}</h3>
-              <Carousel showThumbs={false} width='600px'>
+              <h3>YouTube Break Videos:</h3>
+              <div>
                 {displayYoutubeVideos}
-              </Carousel>
+              </div>
             </section>
             <hr />
             <section className="product-page-user-review-form">
-              <button onClick={() => console.log('click')}>Create Review!</button>
-              <h3>Fill out the form below to post a review of your break!</h3>
-              <ReviewForm currentUser={this.props.username} imageCount={this.props.imageCount} product={product} />
+              <button onClick={() => this.createReviewFormClick()}>{createReviewFormButtonText}</button>
+              {createReviewForm}
             </section>
             <hr />
-            <section className="product-page-user-reviews-list">
-              <h3>Box Break Reviews</h3>
+            <section className="product-page-user-reviews-pagination">
+              <h3>User Reviews:</h3>
+              {paginateUserReviews}
             </section>
           </div>
         </div>
@@ -207,6 +214,7 @@ const mapStateToProps = state => {
     products: state.products.products,
     imageCount: state.auth.imageCount,
     reviews: state.reviews.reviews,
+    toggleReviewForm: state.products.toggleReviewForm,
   };
 };
 

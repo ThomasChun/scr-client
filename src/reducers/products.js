@@ -5,12 +5,14 @@ import {
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_ERROR,
+  TOGGLE_REVIEW_FORM,
 } from '../actions/products';
 
 const initialState = {
   products: null,
   loading: false,
   error: null,
+  toggleReviewForm: false,
 }
 
 export default function reducer(state=initialState, action) {
@@ -47,6 +49,11 @@ export default function reducer(state=initialState, action) {
       ...state,
       loading: false, 
       error: action.error,
+    }
+  } else if (action.type === TOGGLE_REVIEW_FORM) {
+    return {
+      ...state,
+      toggleReviewForm: !state.toggleReviewForm,
     }
   }
   return state;

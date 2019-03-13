@@ -221,10 +221,24 @@ body {
   margin-bottom: 15px;
 }
 
-.product-page-product-breakdown-text {
+.product-page-product-breakdown-text, .product-page-user-reviews-list {
   font-size: 14px;
   line-height: 22px;
   white-space: pre-line;
+}
+
+.product-page-user-reviews-list ul {
+  list-style: none;
+}
+
+.individual-user-review-container {
+  border: 1px solid #d9d9d9;
+  margin: 15px 0px;
+  border-radius: 4px;
+}
+
+.individual-user-review-container ul {
+  padding: 20px;
 }
 
 .product-page-image-breakdown-container {
@@ -235,10 +249,6 @@ body {
 .product-page-main hr {
   margin: 25px 0px;
   color: #d9d9d9;
-}
-
-.product-page-pulls-images {
-  max-width: 
 }
 
 .product-page-pulls-images .carousel, .product-page-user-video-collection .carousel {
@@ -279,6 +289,43 @@ body {
 
 .review-form-user-break-images-input-container div {
   margin: 0px;
+}
+
+.pagination {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.pagination li button {
+  width: 50px;
+  height: 23px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: white;
+  border: 1px solid rgb(139, 139, 139);
+  border-right: none;
+}
+
+#pagination-last {
+  border-right: 1px solid rgb(139, 139, 139) !important;
+}
+
+.pagination #page-number {
+  width: 35px;
+}
+
+.pagination .active {
+  font-weight: bold;
+  background-color: rgb(71, 114, 255);
+  border-bottom: 1px solid black;
+  color: white;
+}
+
+.pagination .disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
 }
 
 @media screen and (max-width: 600px){

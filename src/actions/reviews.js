@@ -83,3 +83,9 @@ export const createReview = (username, productName, review) => (dispatch, getSta
   .then(data => dispatch(createReviewsSuccess(data)))
   .catch(err => dispatch(createReviewsError(err)))
 }
+
+export const PAGE_OF_ITEMS = 'PAGE_OF_ITEMS';
+export const pageOfItems = (pageOfItems) => ({
+  type: PAGE_OF_ITEMS,
+  pageOfItems,
+})
