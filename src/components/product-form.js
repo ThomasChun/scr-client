@@ -7,7 +7,6 @@ import { createProduct } from '../actions/products';
 export class ProductForm extends React.Component {
 
   onSubmit(values) {
-    console.log(values);
     this.props.dispatch(createProduct(values));
   }
 

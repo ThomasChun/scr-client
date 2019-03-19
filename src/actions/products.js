@@ -51,7 +51,7 @@ export const createProductError = (error) => ({
   error,
 });
 
-export const createProduct = product => (dispatch, getState) => {
+export const createProduct = (product) => (dispatch, getState) => {
   dispatch(createProductRequest());
   const { name, sport, year, releaseDate, brand, productImageUrl, breakdown, description } = product;
   const authToken = getState().auth.authToken;

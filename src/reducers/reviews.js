@@ -6,6 +6,9 @@ import {
   CREATE_REVIEWS_SUCCESS,
   CREATE_REVIEWS_ERROR,
   PAGE_OF_ITEMS,
+  APPROVE_REVIEWS_REQUEST,
+  APPROVE_REVIEWS_SUCCESS,
+  APPROVE_REVIEWS_ERROR,
 } from '../actions/reviews';
 
 const initialState = {
@@ -54,6 +57,22 @@ export default function reducer(state = initialState, action) {
     return {
       ...state,
       pageOfItems: action.pageOfItems,
+    }
+  } else if (action.type === APPROVE_REVIEWS_REQUEST) {
+    return {
+      ...state,
+      loading: true,
+    }
+  } else if (action.type === APPROVE_REVIEWS_SUCCESS) {
+    return {
+      ...state,
+      loading: false,
+    }
+  } else if (action.type === APPROVE_REVIEWS_ERROR) {
+    return {
+      ...state,
+      loading: false,
+      error: action.error,
     }
   }
   return state;
